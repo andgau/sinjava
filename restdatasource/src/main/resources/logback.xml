@@ -58,7 +58,7 @@
 	</appender>
 
 	<!-- Send logs to both console and file audit -->
-	<logger name="com.hp.idescat" level="debug" additivity="false">
+	<logger name="es.sinjava" level="debug" additivity="false">
 		<appender-ref ref="FILE-AUDIT" />
 		<appender-ref ref="STDOUT" />
 	</logger>

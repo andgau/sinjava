@@ -1,4 +1,4 @@
-package com.hp.idescat.cerda.metadata;
+package es.sinjava.jndiexample;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;

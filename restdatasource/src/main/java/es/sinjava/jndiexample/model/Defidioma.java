@@ -1,4 +1,4 @@
-package com.hp.idescat.cerda.metadata.model;
+package es.sinjava.jndiexample.model;
 
 import java.io.Serializable;
 import javax.persistence.*;

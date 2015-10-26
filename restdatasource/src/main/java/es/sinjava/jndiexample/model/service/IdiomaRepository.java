@@ -1,11 +1,11 @@
-package com.hp.idescat.cerda.metadata.model.service;
+package es.sinjava.jndiexample.model.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.hp.idescat.cerda.metadata.model.Idioma;
+import es.sinjava.jndiexample.model.Idioma;
 
 
 @RepositoryRestResource(collectionResourceRel = "idioma", path = "idioma")

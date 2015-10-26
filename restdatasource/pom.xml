@@ -9,8 +9,8 @@
 		<version>1.2.5.RELEASE</version>
 	</parent>
 	<artifactId>cerdaadmin</artifactId>
-	<groupId>com.hp.idescat</groupId>
-	<name>CerdaAdmin</name>
+	<groupId>es.sinjava</groupId>
+	<name>admin</name>
 	<description>Backend Administracion Module</description>
 	<version>1.0</version>
 
@@ -67,7 +67,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>cerdaadmin</finalName>
+		<finalName>admin</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -81,5 +81,4 @@
 			</resource>
 		</resources>
 	</build>
-	<packaging>war</packaging>
 </project>
