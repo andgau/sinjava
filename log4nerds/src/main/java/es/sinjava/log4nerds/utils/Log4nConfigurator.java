@@ -9,9 +9,20 @@ import es.sinjava.log4nerds.factories.Log4nFactory;
 
 public class Log4nConfigurator {
 
-	private static Logger logger = Log4nFactory.getInstance(Log4nConfigurator.rainbow());
-
-	private Map<Level, String> configuration;
+	private  Map<Level, String> configuration;
+	
+	private Log4nConfigurator() {
+		
+	}
+	
+	public static Log4nConfigurator black() {
+		Log4nConfigurator configurator = new Log4nConfigurator();
+		configurator.configuration = new HashMap<>();
+		for (Log4nLevelEnum item : Log4nLevelEnum.values()) {
+			configurator.configuration.put(Level.parse(item.name()), Log4nColorEnum.BLACK.getCode());
+		}
+		return configurator;
+	}
 
 	public static Log4nConfigurator rainbow() {
 		Log4nConfigurator configurator = new Log4nConfigurator();
@@ -24,12 +35,25 @@ public class Log4nConfigurator {
 			String value = colorValues[indexColor++].getCode();
 			configurator.configuration.put(currentLevel, value);
 		}
-
 		return configurator;
+	}
+
+	public Log4nConfigurator configure(Level level, Log4nColorEnum color) {
+		configuration.put(level, color.getCode());
+		Log4nConfigurator configurator= new Log4nConfigurator();
+		configurator.setConfiguration(configuration);
+		
+		return configurator;
+	}
+	
+
+	public void setConfiguration(Map<Level, String> configuration) {
+		this.configuration = configuration;
 	}
 
 	public Map<Level, String> getConfiguration() {
 		return configuration;
 	}
+
 
 }
