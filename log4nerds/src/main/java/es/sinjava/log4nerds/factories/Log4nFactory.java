@@ -1,11 +1,14 @@
 package es.sinjava.log4nerds.factories;
 
-import static es.sinjava.log4nerds.utils.Log4nColors.* ;
+import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_BLUE;
+import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_GREEN;
+import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_PURPLE;
+import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_RED;
+import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_YELLOW;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
@@ -18,12 +21,17 @@ public class Log4nFactory {
 
 	private static Logger logger;
 
-	public static Logger getInstance() {
+	public static Logger getInstance(Log4nConfigurator log4nConfigurator) {
 		if (logger == null) {
 			logger = Logger.getAnonymousLogger();
 			ConsoleHandler ch = new ConsoleHandler();
 			ch.setLevel(Level.ALL);
-			Formatter newFormatter = defaultFormater();
+			Formatter newFormatter;
+			if (log4nConfigurator != null) {
+				newFormatter = formaterFromConfigurator(log4nConfigurator);
+			} else {
+				newFormatter = defaultFormater();
+			}
 			ch.setFormatter(newFormatter);
 			logger.addHandler(ch);
 			logger.setUseParentHandlers(false);
@@ -31,21 +39,6 @@ public class Log4nFactory {
 		}
 		return logger;
 	}
-	
-	public static Logger getInstance(Log4nConfigurator  log4nConfigurator) {
-		if (logger == null) {
-			logger = Logger.getAnonymousLogger();
-			ConsoleHandler ch = new ConsoleHandler();
-			ch.setLevel(Level.ALL);
-			Formatter newFormatter = formaterFromConfigurator(log4nConfigurator);
-			ch.setFormatter(newFormatter);
-			logger.addHandler(ch);
-			logger.setUseParentHandlers(false);
-			logger.setLevel(Level.ALL);
-		}
-		return logger;
-	}
-	
 
 	private static Formatter formaterFromConfigurator(Log4nConfigurator log4nConfigurator) {
 		Formatter newFormatter = new Formatter() {
@@ -64,17 +57,17 @@ public class Log4nFactory {
 				StringBuilder sb = new StringBuilder();
 
 				// ahora queremos añadir algo de color :-)
-		
-				
-//				for (Entry<Level, String> item:log4nConfigurator.getConfiguration().entrySet()) {
-//					
-//				}
+
+				// for (Entry<Level, String>
+				// item:log4nConfigurator.getConfiguration().entrySet()) {
+				//
+				// }
 				Map<Level, String> mapping = log4nConfigurator.getConfiguration();
-				
+
 				String item = mapping.get(record.getLevel());
-			
+
 				sb.append(item);
-				
+
 				// fin de la inserción de color
 				sb.append(nivel).append(" | ");
 
