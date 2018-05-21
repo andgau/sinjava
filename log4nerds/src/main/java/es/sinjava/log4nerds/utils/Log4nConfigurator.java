@@ -9,12 +9,17 @@ import es.sinjava.log4nerds.factories.Log4nFactory;
 
 public class Log4nConfigurator {
 
-	private  Map<Level, String> configuration;
-	
+	private Map<Level, String> configuration;
+	private boolean localized;
+
 	private Log4nConfigurator() {
-		
+
 	}
-	
+
+	public boolean isLocalized() {
+		return localized;
+	}
+
 	public static Log4nConfigurator black() {
 		Log4nConfigurator configurator = new Log4nConfigurator();
 		configurator.configuration = new HashMap<>();
@@ -40,12 +45,18 @@ public class Log4nConfigurator {
 
 	public Log4nConfigurator configure(Level level, Log4nColorEnum color) {
 		configuration.put(level, color.getCode());
-		Log4nConfigurator configurator= new Log4nConfigurator();
+		Log4nConfigurator configurator = new Log4nConfigurator();
 		configurator.setConfiguration(configuration);
-		
+		configurator.localized = localized;
 		return configurator;
 	}
-	
+
+	public Log4nConfigurator setLocal(boolean localized) {
+		Log4nConfigurator configurator = new Log4nConfigurator();
+		configurator.setConfiguration(configuration);
+		configurator.localized = localized;
+		return configurator;
+	}
 
 	public void setConfiguration(Map<Level, String> configuration) {
 		this.configuration = configuration;
@@ -54,6 +65,5 @@ public class Log4nConfigurator {
 	public Map<Level, String> getConfiguration() {
 		return configuration;
 	}
-
 
 }
