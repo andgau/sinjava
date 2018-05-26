@@ -53,10 +53,8 @@ public class Log4nFactory {
 				Formatter newFormatter = simpleFormater();
 				fileHandler.setFormatter(newFormatter);
 				logger.addHandler(fileHandler);
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (SecurityException | IOException e) {
+				logger.severe(e.getMessage());
 			}
 
 			logger.setUseParentHandlers(false);
@@ -117,39 +115,24 @@ public class Log4nFactory {
 
 				String mensaje = record.getMessage();
 
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy hh:mm:ss");
-
 				String hora = dtf.format(LocalDateTime.now());
 
-				String nivel = String.format("%8s", record.getLevel().getName());
+				String nivel =nivelFormater(record,false);
 
 				StringBuilder sb = new StringBuilder();
 
-				// ahora queremos añadir algo de color :-)
-
-				if (record.getLevel().equals(Level.FINE)) {
-					sb.append(ANSI_BLUE);
-				} else if (record.getLevel().equals(Level.INFO)) {
-					sb.append(ANSI_PURPLE);
-				} else if (record.getLevel().equals(Level.SEVERE)) {
+				if (record.getLevel().equals(Level.SEVERE)) {
 					sb.append(ANSI_RED);
-				} else if (record.getLevel().equals(Level.CONFIG)) {
-					sb.append(ANSI_GREEN);
 				} else {
-					sb.append(ANSI_YELLOW);
+					sb.append(ANSI_BLUE);
 				}
-				// fin de la inserción de color
-				sb.append(nivel).append(" | ");
 
-				sb.append(hora).append(" | ");
+				sb.append(nivel).append(" | ").append(hora).append(" | ");
 
-				// la añadimos la clase
 				sb.append(record.getSourceClassName()).append(" | ");
 
-				// la añadimos el método
 				sb.append(record.getSourceMethodName()).append(" | ");
 
-				// añado un salto de linea al final
 				sb.append(mensaje).append("\n");
 
 				return sb.toString();
@@ -165,40 +148,38 @@ public class Log4nFactory {
 			@Override
 			public String format(LogRecord record) {
 
-				String mensaje = record.getMessage();
-
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy hh:mm:ss");
-
 				String hora = dtf.format(LocalDateTime.now());
 
-				String nivel = String.format("%8s", record.getLevel());
+				String nivel = nivelFormater(record, false);
 
 				StringBuilder sb = new StringBuilder();
-
-				// fin de la inserción de color
-				sb.append(nivel).append(" | ");
-
-				sb.append(hora).append(" | ");
-
-				// la añadimos la clase
+			
+				sb.append(nivel).append(" | ").append(hora).append(" | ");
+				
 				sb.append(record.getSourceClassName()).append(" | ");
 
-				// la añadimos el método
 				sb.append(record.getSourceMethodName()).append(" | ");
 
-				// añado un salto de linea al final
-				sb.append(mensaje).append("\n");
+				sb.append(record.getMessage()).append("\n");
 
 				return sb.toString();
 			}
+
 		};
-		// Ahora hay que meterle un formatter al ch
+		
 		return newFormatter;
 	}
 
 	private static String getLocalizedLevel(Log4nConfigurator log4nConfigurator, LogRecord record) {
-		String nivel = log4nConfigurator.isLocalized()?record.getLevel().getLocalizedName():record.getLevel().getName();
-		return String.format("%8s", nivel);
+		return nivelFormater(record, log4nConfigurator.isLocalized());
+	}
+
+	private static String nivelFormater(LogRecord record, boolean isLocalized) {
+		String level = isLocalized ? record.getLevel().getLocalizedName() : record.getLevel().getName();
+
+		level = (level.length() < 8) ? level : level.substring(0, 7);
+
+		return String.format("%8s", level);
 	}
 
 }

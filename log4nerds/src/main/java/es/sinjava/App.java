@@ -10,7 +10,7 @@ import es.sinjava.log4nerds.utils.Log4nConfigurator;
 
 public class App {
 
-	private static Log4nConfigurator config = Log4nConfigurator.black().setLocal(true).configure(INFO, BLUE).configure(SEVERE, RED);
+	private static Log4nConfigurator config = Log4nConfigurator.rainbow().setLocal(false).configure(INFO, BLUE).configure(SEVERE, CYAN);
 
 	private static Logger logger = Log4nFactory.getInstance(config);
 	// private static Logger logger =
@@ -22,5 +22,6 @@ public class App {
 		logger.info("Hola Mundo");
 		logger.severe("Mensaje de abuelo");
 		logger.warning("Mensaje Warningn");
+		logger.config("Mensaje de Configuración");
 	}
 }
