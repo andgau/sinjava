@@ -1,3 +1,9 @@
 /target/
 /.classpath
 /.project
+/App
+/App.lck
+/Hola.log
+/Hola.log.lck
+/Log4nConfigurator
+/Log4nConfigurator.lck
