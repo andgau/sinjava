@@ -1,5 +1,6 @@
 package es.sinjava.log4nerds.factories;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -42,10 +43,21 @@ public class Log4nFactory {
 
 		if (logger == null) {
 			logger = Logger.getAnonymousLogger();
-
-			Handler fileHandler;
+			// por defecto donde está el jar
+			// caso contrario en la carpeta temporal
 			try {
-				fileHandler = new FileHandler(fileConfigurator.getFileName(), true);
+
+				String filename = fileConfigurator.getFileName();
+
+				if (fileConfigurator.isTemp()) {
+					filename = File.createTempFile(filename, ".log").getAbsolutePath();
+				}
+				// Si es temporal no tiene sentido hacer un append
+
+				boolean mustAppend = !fileConfigurator.isTemp();
+
+				Handler fileHandler = new FileHandler(filename, mustAppend);
+
 				fileHandler.setLevel(Level.ALL);
 				Formatter newFormatter = new SimpleFormatter(fileConfigurator.isLocalized());
 				fileHandler.setFormatter(newFormatter);
@@ -58,38 +70,5 @@ public class Log4nFactory {
 		}
 		return logger;
 	}
-	//
-	// private static Formatter defaultFormater() {
-	// Formatter newFormatter = new Formatter() {
-	//
-	// @Override
-	// public String format(LogRecord record) {
-	//
-	// String hora = dtf.format(LocalDateTime.now());
-	//
-	// String nivel = nivelFormater(record, false);
-	//
-	// StringBuilder sb = new StringBuilder();
-	//
-	// if (record.getLevel().equals(Level.SEVERE)) {
-	// sb.append(ANSI_RED);
-	// } else {
-	// sb.append(ANSI_BLUE);
-	// }
-	//
-	// sb.append(nivel).append(" | ").append(hora).append(" | ");
-	//
-	// sb.append(record.getSourceClassName()).append(" | ");
-	//
-	// sb.append(record.getSourceMethodName()).append(" | ");
-	//
-	// sb.append(record.getMessage()).append(ANSI_RESET).append(" \n");
-	//
-	// return sb.toString();
-	// }
-	// };
-	// // Ahora hay que meterle un formatter al ch
-	// return newFormatter;
-	// }
 
 }
