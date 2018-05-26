@@ -1,27 +1,33 @@
-package es.sinjava.log4nerds.utils;
+package es.sinjava.log4nerds.Configurators;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import es.sinjava.log4nerds.factories.Log4nFactory;
+import es.sinjava.log4nerds.utils.Log4nColorEnum;
+import es.sinjava.log4nerds.utils.Log4nLevelEnum;
 
-public class Log4nConfigurator {
+public class ConsoleConfigurator {
 
 	private Map<Level, String> configuration;
 	private boolean localized;
 
-	private Log4nConfigurator() {
+	private ConsoleConfigurator() {
 
 	}
 
-	public boolean isLocalized() {
-		return localized;
+	public static ConsoleConfigurator getInstance() {
+		ConsoleConfigurator configurator = new ConsoleConfigurator();
+		configurator.configuration = new HashMap<>();
+		for (Log4nLevelEnum item : Log4nLevelEnum.values()) {
+			// No introducirá nada
+			configurator.configuration.put(Level.parse(item.name()), "");
+		}
+		return configurator;
 	}
 
-	public static Log4nConfigurator black() {
-		Log4nConfigurator configurator = new Log4nConfigurator();
+	public static ConsoleConfigurator black() {
+		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.configuration = new HashMap<>();
 		for (Log4nLevelEnum item : Log4nLevelEnum.values()) {
 			configurator.configuration.put(Level.parse(item.name()), Log4nColorEnum.BLACK.getCode());
@@ -29,8 +35,8 @@ public class Log4nConfigurator {
 		return configurator;
 	}
 
-	public static Log4nConfigurator rainbow() {
-		Log4nConfigurator configurator = new Log4nConfigurator();
+	public static ConsoleConfigurator rainbow() {
+		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.configuration = new HashMap<>();
 		int indexColor = 0;
 		for (Log4nLevelEnum item : Log4nLevelEnum.values()) {
@@ -43,18 +49,20 @@ public class Log4nConfigurator {
 		return configurator;
 	}
 
-	public Log4nConfigurator configure(Level level, Log4nColorEnum color) {
+	public ConsoleConfigurator configure(Level level, Log4nColorEnum color) {
 		configuration.put(level, color.getCode());
-		Log4nConfigurator configurator = new Log4nConfigurator();
+		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
+
 		return configurator;
 	}
 
-	public Log4nConfigurator setLocal(boolean localized) {
-		Log4nConfigurator configurator = new Log4nConfigurator();
+	public ConsoleConfigurator setLocal(boolean localized) {
+		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
+
 		return configurator;
 	}
 
@@ -64,6 +72,14 @@ public class Log4nConfigurator {
 
 	public Map<Level, String> getConfiguration() {
 		return configuration;
+	}
+
+	public void setLocalized(boolean localized) {
+		this.localized = localized;
+	}
+
+	public boolean isLocalized() {
+		return localized;
 	}
 
 }
