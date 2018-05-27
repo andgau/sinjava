@@ -25,5 +25,6 @@ public class ConsoleApp {
 		logger.severe("Mensaje de abuelo");
 		logger.warning("Mensaje Warningn");
 		logger.config("Mensaje de Configuración");
+
 	}
 }
