@@ -1,8 +1,9 @@
+
 package es.sinjava.log4nerds.formatters;
 
-import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_BLUE;
-import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_RED;
-import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_RESET;
+import static es.sinjava.log4nerds.utils.Color.ANSI_BLUE;
+import static es.sinjava.log4nerds.utils.Color.ANSI_RED;
+import static es.sinjava.log4nerds.utils.Color.ANSI_RESET;
 
 import java.util.logging.Formatter;
 import java.util.logging.Level;
@@ -24,9 +25,7 @@ public class DefaultFormatter extends Formatter implements IFormatter {
 		} else {
 			sb.append(ANSI_BLUE);
 		}
-
 		bodyLogRecord(record, sb);
-
 		sb.append(record.getMessage()).append(ANSI_RESET).append(" \n");
 
 		return sb.toString();

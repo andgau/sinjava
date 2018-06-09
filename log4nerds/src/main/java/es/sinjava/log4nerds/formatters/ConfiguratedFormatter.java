@@ -1,6 +1,7 @@
+
 package es.sinjava.log4nerds.formatters;
 
-import static es.sinjava.log4nerds.utils.Log4nColors.ANSI_RESET;
+import static es.sinjava.log4nerds.utils.Color.ANSI_RESET;
 
 import java.util.Map;
 import java.util.logging.Level;
@@ -20,11 +21,8 @@ public class ConfiguratedFormatter extends DefaultFormatter implements IFormatte
 		StringBuilder sb = new StringBuilder();
 
 		String item = configuration.get(record.getLevel());
-
 		sb.append(item);
-
 		bodyLogRecord(record, sb);
-
 		sb.append(ANSI_RESET).append(" \n");
 
 		return sb.toString();

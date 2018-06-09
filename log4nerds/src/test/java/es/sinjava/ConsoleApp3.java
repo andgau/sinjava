@@ -1,7 +1,8 @@
+
 package es.sinjava;
 
-import static es.sinjava.log4nerds.utils.Log4nColorEnum.BLUE;
-import static es.sinjava.log4nerds.utils.Log4nColorEnum.CYAN;
+import static es.sinjava.log4nerds.utils.ColorEnum.BLUE;
+import static es.sinjava.log4nerds.utils.ColorEnum.CYAN;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.SEVERE;
 

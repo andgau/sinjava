@@ -1,3 +1,4 @@
+
 package es.sinjava;
 
 import java.util.logging.Logger;

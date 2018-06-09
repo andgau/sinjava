@@ -1,3 +1,4 @@
+
 package es.sinjava.log4nerds.formatters;
 
 import java.time.LocalDateTime;
