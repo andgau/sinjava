@@ -21,7 +21,7 @@ public class ConsoleApp4 {
 		logger.finest("Mensaje finest");
 		logger.info("Hola Mundo");
 		logger.severe("Mensaje de abuelo");
-		logger.warning("Mensaje Warningn");
+		logger.warning("Mensaje Warnin");
 		logger.config("Mensaje de Configuración");
 	}
 }

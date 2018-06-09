@@ -48,10 +48,12 @@ public class ConsoleConfigurator {
 
 	private Map<Level, String> configuration;
 
-	private List<FieldEnum> fieldList = Arrays.asList(FieldEnum.FSEQ, FieldEnum.FLEVEL, FieldEnum.FTIME,
-			FieldEnum.FCLASS, FieldEnum.FMETHOD);
+	private List<FieldEnum> fieldList; // = Arrays.asList(FieldEnum.FSEQ, FieldEnum.FLEVEL, FieldEnum.FTIME,
+	// FieldEnum.FCLASS, FieldEnum.FMETHOD);
 
 	private boolean localized;
+
+	public String separator;
 
 	private ConsoleConfigurator() {
 
@@ -62,11 +64,21 @@ public class ConsoleConfigurator {
 		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
+		configurator.setFieldList(getFieldList());
+		configurator.setSeparator(getSeparator());
 		return configurator;
 	}
 
 	public Map<Level, String> getConfiguration() {
 		return configuration;
+	}
+
+	public List<FieldEnum> getFieldList() {
+		return fieldList;
+	}
+
+	public String getSeparator() {
+		return separator;
 	}
 
 	public boolean isLocalized() {
@@ -77,23 +89,34 @@ public class ConsoleConfigurator {
 		this.configuration = configuration;
 	}
 
-	public ConsoleConfigurator setFormat(FieldEnum... fieldEnums) {
+	public void setFieldList(List<FieldEnum> fieldList) {
+		this.fieldList = fieldList;
+	}
+
+	public ConsoleConfigurator setFormat(String separatorIn, FieldEnum... fieldEnums) {
 		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
-		Arrays.asList(fieldEnums);
-		return null;
+		configurator.separator = (separator != null) ? separatorIn : " | ";
+		configurator.setFieldList(Arrays.asList(fieldEnums));
+		return configurator;
 	}
 
 	public ConsoleConfigurator setLocal(boolean localized) {
 		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
+		configurator.setFieldList(getFieldList());
+		configurator.setSeparator(getSeparator());
 		return configurator;
 	}
 
 	public void setLocalized(boolean localized) {
 		this.localized = localized;
+	}
+
+	public void setSeparator(String separator) {
+		this.separator = separator;
 	}
 
 }

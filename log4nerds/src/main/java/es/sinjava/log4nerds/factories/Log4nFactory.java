@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import es.sinjava.log4nerds.Configurators.ConsoleConfigurator;
 import es.sinjava.log4nerds.Configurators.FileConfigurator;
+import es.sinjava.log4nerds.formatters.AdvancedFormatter;
 import es.sinjava.log4nerds.formatters.ConfiguratedFormatter;
 import es.sinjava.log4nerds.formatters.DefaultFormatter;
 import es.sinjava.log4nerds.formatters.SimpleFormatter;
@@ -27,8 +28,12 @@ public class Log4nFactory {
 			Handler ch = new ConsoleHandler();
 			ch.setLevel(Level.ALL);
 			Formatter newFormatter;
-			if (config != null) {
+			if (config != null && config.getFieldList() == null) {
 				newFormatter = new ConfiguratedFormatter(config.getConfiguration(), config.isLocalized());
+				// tring separatorIn, List<FieldEnum> fieldListIn
+			} else if (config != null) {
+				newFormatter = new AdvancedFormatter(config.isLocalized(), config.separator, config.getFieldList());
+
 			} else {
 				newFormatter = new DefaultFormatter();
 			}
