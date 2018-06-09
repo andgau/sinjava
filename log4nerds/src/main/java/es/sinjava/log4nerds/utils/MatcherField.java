@@ -45,7 +45,11 @@ public class MatcherField {
 			value = record.getSourceMethodName();
 
 		} else if (field.equals(FieldEnum.FTIME)) {
+
 			value = dtf.format(LocalDateTime.now());
+
+		} else {
+			value = record.getMessage();
 		}
 		return value;
 	}

@@ -32,8 +32,7 @@ public class Log4nFactory {
 				newFormatter = new ConfiguratedFormatter(config.getConfiguration(), config.isLocalized());
 				// tring separatorIn, List<FieldEnum> fieldListIn
 			} else if (config != null) {
-				newFormatter = new AdvancedFormatter(config.isLocalized(), config.separator, config.getFieldList());
-
+				newFormatter = new AdvancedFormatter(config);
 			} else {
 				newFormatter = new DefaultFormatter();
 			}
