@@ -1,39 +1,37 @@
 
 package es.sinjava.log4nerds.formatters;
 
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.LogRecord;
+
+import es.sinjava.log4nerds.utils.FieldEnum;
+import es.sinjava.log4nerds.utils.MatcherField;
 
 public class AdvancedFormatter extends DefaultFormatter implements IFormatter {
 
-	public AdvancedFormatter(boolean local) {
+	private List<FieldEnum> fieldList;
+
+	private String separator = " | ";
+
+	public AdvancedFormatter(boolean local, String separatorIn, List<FieldEnum> fieldListIn) {
 		setLocalized(local);
+		fieldList = fieldListIn;
+		separator = (separatorIn != null) ? separatorIn : separator;
 	}
 
-	private void bodyRecord(LogRecord record, StringBuilder sb) {
-
-		String hora = dtf.format(LocalDateTime.now());
-
-		String nivel = getLocalizedLevel(record);
-
-		sb.append(record.getSequenceNumber()).append(" | ");
-
-		sb.append(nivel).append(" | ").append(hora).append(" | ");
-
-		sb.append(record.getSourceClassName()).append(" | ");
-
-		sb.append(record.getSourceMethodName()).append(" | ");
-
-		sb.append(record.getMessage());
+	private StringBuilder bodyRecord(LogRecord record) {
+		StringBuilder sb = new StringBuilder();
+		MatcherField matcher = MatcherField.getInstance(isLocalized(), dtf);
+		for (FieldEnum field : fieldList) {
+			sb.append(matcher.getValue(field, record)).append(separator);
+		}
+		return sb;
 	}
 
 	@Override
 	public String format(LogRecord record) {
 
-		StringBuilder sb = new StringBuilder();
-
-		bodyRecord(record, sb);
-
+		StringBuilder sb = bodyRecord(record);
 		sb.append(record.getMessage()).append("\n");
 
 		return sb.toString();

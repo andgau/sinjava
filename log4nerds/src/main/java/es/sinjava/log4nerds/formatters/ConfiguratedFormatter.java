@@ -13,11 +13,11 @@ public class ConfiguratedFormatter extends DefaultFormatter implements IFormatte
 
 	public ConfiguratedFormatter(Map<Level, String> configurationInput, boolean local) {
 		configuration = configurationInput;
+		setLocalized(local);
 	}
 
 	@Override
 	public String format(LogRecord record) {
-
 		StringBuilder sb = new StringBuilder();
 
 		String item = configuration.get(record.getLevel());

@@ -1,11 +1,14 @@
 
 package es.sinjava.log4nerds.Configurators;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
 import es.sinjava.log4nerds.utils.ColorEnum;
+import es.sinjava.log4nerds.utils.FieldEnum;
 import es.sinjava.log4nerds.utils.LevelEnum;
 
 public class ConsoleConfigurator {
@@ -45,6 +48,9 @@ public class ConsoleConfigurator {
 
 	private Map<Level, String> configuration;
 
+	private List<FieldEnum> fieldList = Arrays.asList(FieldEnum.FSEQ, FieldEnum.FLEVEL, FieldEnum.FTIME,
+			FieldEnum.FCLASS, FieldEnum.FMETHOD);
+
 	private boolean localized;
 
 	private ConsoleConfigurator() {
@@ -56,7 +62,6 @@ public class ConsoleConfigurator {
 		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
-
 		return configurator;
 	}
 
@@ -72,11 +77,18 @@ public class ConsoleConfigurator {
 		this.configuration = configuration;
 	}
 
+	public ConsoleConfigurator setFormat(FieldEnum... fieldEnums) {
+		ConsoleConfigurator configurator = new ConsoleConfigurator();
+		configurator.setConfiguration(configuration);
+		configurator.localized = localized;
+		Arrays.asList(fieldEnums);
+		return null;
+	}
+
 	public ConsoleConfigurator setLocal(boolean localized) {
 		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
-
 		return configurator;
 	}
 
