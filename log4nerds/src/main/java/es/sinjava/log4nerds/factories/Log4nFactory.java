@@ -1,8 +1,16 @@
 
 package es.sinjava.log4nerds.factories;
 
+import static es.sinjava.log4nerds.utils.FieldEnum.FCLASS;
+import static es.sinjava.log4nerds.utils.FieldEnum.FLEVEL;
+import static es.sinjava.log4nerds.utils.FieldEnum.FMETHOD;
+import static es.sinjava.log4nerds.utils.FieldEnum.FSEQ;
+import static es.sinjava.log4nerds.utils.FieldEnum.FTIME;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
@@ -13,9 +21,9 @@ import java.util.logging.Logger;
 import es.sinjava.log4nerds.Configurators.ConsoleConfigurator;
 import es.sinjava.log4nerds.Configurators.FileConfigurator;
 import es.sinjava.log4nerds.formatters.AdvancedFormatter;
-import es.sinjava.log4nerds.formatters.ConfiguratedFormatter;
 import es.sinjava.log4nerds.formatters.DefaultFormatter;
 import es.sinjava.log4nerds.formatters.SimpleFormatter;
+import es.sinjava.log4nerds.utils.FieldEnum;
 
 public class Log4nFactory {
 
@@ -28,10 +36,13 @@ public class Log4nFactory {
 			Handler ch = new ConsoleHandler();
 			ch.setLevel(Level.ALL);
 			Formatter newFormatter;
-			if (config != null && config.getFieldList() == null) {
-				newFormatter = new ConfiguratedFormatter(config.getConfiguration(), config.isLocalized());
-				// tring separatorIn, List<FieldEnum> fieldListIn
-			} else if (config != null) {
+			if (config != null) {
+				if (config.getFieldList() == null) {
+					// Metemos un orden por defecto
+					List<FieldEnum> fieldList = Arrays.asList(FSEQ, FLEVEL, FTIME, FCLASS, FMETHOD);
+					config.setFieldList(fieldList);
+				}
+
 				newFormatter = new AdvancedFormatter(config);
 			} else {
 				newFormatter = new DefaultFormatter();

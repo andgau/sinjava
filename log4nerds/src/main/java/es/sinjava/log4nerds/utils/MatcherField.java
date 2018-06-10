@@ -32,11 +32,10 @@ public class MatcherField {
 		if (field.equals(FieldEnum.FSEQ)) {
 			value = Long.toString(record.getSequenceNumber());
 
-		} else if (field.equals(FieldEnum.FLEVEL) && localized) {
-			value = record.getLevel().getLocalizedName();
-
-		} else if (field.equals(FieldEnum.FLEVEL) && !localized) {
-			value = record.getLevel().getName();
+		} else if (field.equals(FieldEnum.FLEVEL)) {
+			String level = localized ? record.getLevel().getLocalizedName() : record.getLevel().getName();
+			level = (level.length() < 8) ? level : level.substring(0, 7);
+			value = String.format("%8s", level);
 
 		} else if (field.equals(FieldEnum.FCLASS)) {
 			value = record.getSourceClassName();

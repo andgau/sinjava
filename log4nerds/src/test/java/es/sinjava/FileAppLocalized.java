@@ -8,7 +8,7 @@ import es.sinjava.log4nerds.factories.Log4nFactory;
 
 public class FileAppLocalized {
 
-	private static FileConfigurator config = FileConfigurator.getInstance("Hola.log", true, true);
+	private static FileConfigurator config = FileConfigurator.getInstance("Hola2.log", false, true);
 
 	private static Logger logger = Log4nFactory.getInstance(config);
 

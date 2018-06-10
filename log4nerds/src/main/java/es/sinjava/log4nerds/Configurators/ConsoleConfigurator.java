@@ -97,7 +97,7 @@ public class ConsoleConfigurator {
 		ConsoleConfigurator configurator = new ConsoleConfigurator();
 		configurator.setConfiguration(configuration);
 		configurator.localized = localized;
-		configurator.separator = (separator != null) ? separatorIn : " | ";
+		configurator.separator = (separatorIn != null) ? separatorIn : " | ";
 		configurator.setFieldList(Arrays.asList(fieldEnums));
 		return configurator;
 	}

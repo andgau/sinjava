@@ -14,7 +14,7 @@ import es.sinjava.log4nerds.factories.Log4nFactory;
 
 public class ConsoleApp5 {
 
-	private static ConsoleConfigurator config = ConsoleConfigurator.black().setLocal(false).setFormat(" $ ", FSEQ,
+	private static ConsoleConfigurator config = ConsoleConfigurator.black().setLocal(true).setFormat(" | ", FSEQ,
 			FLEVEL, FTIME, FCLASS, FMETHOD);
 
 	private static Logger logger = Log4nFactory.getInstance(config);
