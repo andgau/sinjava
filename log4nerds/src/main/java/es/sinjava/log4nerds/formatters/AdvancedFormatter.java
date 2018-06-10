@@ -37,7 +37,7 @@ public class AdvancedFormatter extends DefaultFormatter implements IFormatter {
 		for (FieldEnum field : fieldList) {
 			sb.append(matcher.getValue(field, record)).append(separator);
 		}
-		return sb.append(ANSI_RESET);
+		return sb.delete(sb.lastIndexOf(separator), sb.length()).append(ANSI_RESET);
 	}
 
 	private StringBuilder bodyRecord(LogRecord record) {
@@ -46,7 +46,7 @@ public class AdvancedFormatter extends DefaultFormatter implements IFormatter {
 		for (FieldEnum field : fieldList) {
 			sb.append(matcher.getValue(field, record)).append(separator);
 		}
-		return sb;
+		return sb.delete(sb.lastIndexOf(separator), sb.length());
 	}
 
 	@Override
